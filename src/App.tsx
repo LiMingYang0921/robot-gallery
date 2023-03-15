@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Robot from './components/robot/Robot'
 import styles from './App.module.css'
 import logo from './assets/images/logo.svg'
@@ -12,8 +12,19 @@ interface State {
 }
 
 const App: React.FC = (props) => {
-  const [count, setCount] = useState<number>(0)
 
+  const [count, setCount] = useState<number>(0)
+  const [robotGallery, setRobotGallery] = useState<any>([])
+
+  useEffect(() => {
+    console.log(`点击${count}次`)
+  }, [count])
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users").then(res => res.json()).then((data) => {
+      setRobotGallery(data)
+    })
+  }, [])
 
   return (
     <div className={styles.App} >
@@ -31,7 +42,7 @@ const App: React.FC = (props) => {
       <span>count: {count}</span>
       <ShoppingCart />
       <div className={styles.robotList}>
-        {/* {this.state.robotGallery.map(r => <Robot id={r.id} email={r.email} name={r.name} key={r.id} />)} */}
+        {robotGallery.map(r => <Robot id={r.id} email={r.email} name={r.name} key={r.id} />)}
       </div>
     </div>
   )
