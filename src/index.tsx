@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { AppStateProvider } from './AppState';
 
 const defaultContextValue = {
   username: 'lmy'
@@ -16,7 +17,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App username={username} />
+    <AppStateProvider>
+      <App username={username} />
+    </AppStateProvider>
   </React.StrictMode>
 );
 
